@@ -101,6 +101,28 @@ function IdeaTab() {
         })}
       </ul>
 
+      <div className="mt-6 border-t border-hairline pt-5">
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-[10px] font-medium uppercase tracking-widest text-muted">Sticky Note</span>
+          {node.data.stickyNoteAuthor && (
+            <span className="text-[9px] text-muted/60">{node.data.stickyNoteAuthor} added this</span>
+          )}
+        </div>
+        <textarea
+          className="w-full rounded-[3px] border border-hairline bg-teal/5 p-2 text-[12px] text-ink outline-none transition-colors placeholder:text-muted/40 focus:border-teal/50 focus:bg-teal/10"
+          placeholder="Add a manual sticky note for this idea..."
+          rows={3}
+          defaultValue={node.data.stickyNote || ''}
+          onChange={(e) => {
+            const username = useGraphStore.getState().username || 'someone'
+            useGraphStore.getState().updateNodeData(node.id, { 
+              stickyNote: e.target.value,
+              stickyNoteAuthor: e.target.value ? username : null
+            })
+          }}
+        />
+      </div>
+
       <div className="mt-5 flex gap-2">
         <button type="button" onClick={() => focusNodes([node.id, ...neighbours])} className="inline-flex h-8 flex-1 items-center justify-center gap-2 rounded-[3px] border border-hairline text-[11.5px] text-ink transition-colors hover:border-teal/60 hover:bg-teal/10">
           <Crosshair className="size-3.5" strokeWidth={1.5} aria-hidden="true" /> Focus neighbourhood

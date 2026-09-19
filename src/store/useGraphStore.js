@@ -259,6 +259,11 @@ export const useGraphStore = create((set, get) => ({
       edges: s.edges.filter((e) => e.source !== id && e.target !== id),
     })),
 
+  updateNodeData: (id, partialData) =>
+    set((s) => ({
+      nodes: s.nodes.map((n) => (n.id === id ? { ...n, data: { ...n.data, ...partialData } } : n)),
+    })),
+
   /** Cycle through collisions (keyboard "c"). */
   nextCollision: () => {
     const { edges } = get()
