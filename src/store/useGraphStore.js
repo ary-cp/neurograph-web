@@ -121,9 +121,19 @@ export const useGraphStore = create((set, get) => ({
       const localById = new Map(get().entries.map((e) => [e.id, e]))
       const entries = res.notes.map((note) => entryFromNote(note, localById.get(note.id))).sort((a, b) => b.at - a.at)
 
+      const prevSelectedNode = get().nodes.find(n => n.selected)?.id
+      const prevSelectedEdge = get().edges.find(e => e.selected)?.id
+
       set({
-        nodes: renumber(nodes.map((n) => ({ ...n, data: { ...n.data, isNew: false } }))),
-        edges,
+        nodes: renumber(nodes.map((n) => ({ 
+          ...n, 
+          selected: n.id === prevSelectedNode,
+          data: { ...n.data, isNew: false } 
+        }))),
+        edges: edges.map((e) => ({
+          ...e,
+          selected: e.id === prevSelectedEdge
+        })),
         entries,
         roomNotesCount: res.notes.length,
         fitVersion: isPolling ? get().fitVersion : get().fitVersion + 1,
