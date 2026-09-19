@@ -113,7 +113,7 @@ function IdeaTab() {
           className="w-full rounded-[3px] border border-hairline bg-teal/5 p-2 text-[12px] text-ink outline-none transition-colors placeholder:text-muted/40 focus:border-teal/50 focus:bg-teal/10"
           placeholder="Add a manual sticky note for this idea..."
           rows={3}
-          defaultValue={node.data.stickyNote || ''}
+          value={node.data.stickyNote || ''}
           onChange={(e) => {
             const username = useGraphStore.getState().username || 'someone'
             const value = e.target.value
