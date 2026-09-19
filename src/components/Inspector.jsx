@@ -115,10 +115,29 @@ function IdeaTab() {
           defaultValue={node.data.stickyNote || ''}
           onChange={(e) => {
             const username = useGraphStore.getState().username || 'someone'
+            const value = e.target.value
+            
+            // 1. Update local state immediately for instant feedback
             useGraphStore.getState().updateNodeData(node.id, { 
-              stickyNote: e.target.value,
-              stickyNoteAuthor: e.target.value ? username : null
+              stickyNote: value,
+              stickyNoteAuthor: value ? username : null
             })
+            
+            // 2. Debounced API call to sync across the room
+            if (window._stickyNoteTimer) clearTimeout(window._stickyNoteTimer)
+            window._stickyNoteTimer = setTimeout(() => {
+              const roomId = useGraphStore.getState().roomId
+              if (!roomId) return // Only sync if in a multiplayer room
+              
+              const updatedNode = useGraphStore.getState().nodes.find(n => n.id === node.id)
+              if (!updatedNode) return
+              
+              fetch(`${import.meta.env.VITE_API_URL}/api/update-node`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ room_id: roomId, node: updatedNode })
+              }).catch(err => console.error('Failed to sync sticky note:', err))
+            }, 1500) // 1.5s delay after they stop typing
           }}
         />
       </div>
