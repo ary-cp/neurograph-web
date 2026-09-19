@@ -78,7 +78,17 @@ export function mergeGraph(current, incoming) {
 
   for (const raw of incoming.nodes ?? []) {
     const n = normalizeNode(raw)
-    if (nodeIds.has(n.id)) continue
+    if (nodeIds.has(n.id)) {
+      // Update existing node properties (like sticky notes)
+      const i = nodes.findIndex(node => node.id === n.id)
+      if (i > -1) {
+        nodes[i] = { 
+          ...nodes[i], 
+          data: { ...nodes[i].data, ...n.data }
+        }
+      }
+      continue
+    }
     nodeIds.add(n.id)
     nodes.push({ ...n, data: { ...n.data, isNew: true } })
   }
