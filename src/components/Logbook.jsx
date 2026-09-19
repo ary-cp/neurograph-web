@@ -4,7 +4,7 @@ import { useGraphStore } from '../store/useGraphStore'
 import useVoiceInput from '../hooks/useVoiceInput'
 import { INTENT_META } from '../lib/kinds'
 import Waveform from './Waveform'
-import { Kbd, pad2, clock } from './ui'
+import { Kbd, pad2, clock, relativeTime } from './ui'
 
 const EXAMPLE =
   'Remote work gives people more time to focus, but fewer spontaneous conversations. How can teams protect deep work without losing the chance encounters that lead to new ideas?'
@@ -81,7 +81,7 @@ function Entry({ entry, no, focusNodes, setHighlight }) {
     >
       <div className="flex items-center gap-2.5 readout text-muted/70">
         <span className="text-bronze">№ {pad2(no)}</span>
-        <span>{clock(entry.at)}</span>
+        <span>{relativeTime(entry.at)}</span>
         <span className="truncate">{entry.author}</span>
         {intent && <span className="ml-auto shrink-0 uppercase tracking-[0.12em]" style={{ color: intent.hex }}>{intent.label}</span>}
       </div>
