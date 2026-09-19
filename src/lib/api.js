@@ -56,6 +56,10 @@ export function extractGraph(payload, opts) {
   return request('/api/extract-graph', { method: 'POST', body: payload, ...opts })
 }
 
+export function updateNode(roomId, node) {
+  return request('/api/update-node', { method: 'POST', body: { room_id: roomId, node } })
+}
+
 /**
  * GET /api/room/:roomId — the merged graph of every note saved to a multiplayer room.
  * @returns {Promise<{ ok: true, room_id: string, nodes: object[], edges: object[], stats: object, notes: object[] }>}

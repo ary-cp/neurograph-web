@@ -4,6 +4,7 @@ import { useGraphStore } from '../store/useGraphStore'
 import { isContradiction } from '../lib/graphMerge'
 import { kindOf } from '../lib/kinds'
 import { pad2 } from './ui'
+import { updateNode } from '../lib/api'
 
 const TABS = [
   ['idea', 'Idea'],
@@ -132,11 +133,7 @@ function IdeaTab() {
               const updatedNode = useGraphStore.getState().nodes.find(n => n.id === node.id)
               if (!updatedNode) return
               
-              fetch(`${import.meta.env.VITE_API_URL}/api/update-node`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ room_id: roomId, node: updatedNode })
-              }).catch(err => console.error('Failed to sync sticky note:', err))
+              updateNode(roomId, updatedNode).catch(err => console.error('Failed to sync sticky note:', err))
             }, 1500) // 1.5s delay after they stop typing
           }}
         />
