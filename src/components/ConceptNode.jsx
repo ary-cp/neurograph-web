@@ -35,6 +35,19 @@ function ConceptNode({ id, data, selected }) {
       </div>
       <div className="mt-2 text-[13.5px] font-medium leading-[1.3] tracking-[-0.015em] text-ink [overflow-wrap:anywhere]">{data.label}</div>
       {data.summary && <p className="mt-1.5 line-clamp-2 text-[11px] leading-[1.5] text-muted/75">{data.summary}</p>}
+      
+      {/* Mentor's sticky note request */}
+      <div className="mt-2 p-1.5 border border-muted/20 bg-muted/5">
+        <textarea
+          className="w-full bg-transparent text-[10px] text-muted outline-none resize-none placeholder-muted/40 font-mono"
+          placeholder="Add sticky note..."
+          rows={2}
+          onPointerDown={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+          defaultValue={data.stickyNote || ''}
+        />
+      </div>
+
       <div className="mt-2.5 flex items-center justify-between">
         <span className="meter" aria-label={`relevance ${pct}%`}>
           {[0, 1, 2, 3, 4].map((i) => <i key={i} className={i < level ? 'on' : ''} />)}
