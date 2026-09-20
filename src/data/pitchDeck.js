@@ -31,10 +31,10 @@ export const PITCH_GRAPH = {
     n('stack_whisper', 'Entity', 'Whisper AI', 'Seamless voice-to-graph transcription.', 0.8, 1040, 610),
     n('stack_node', 'Entity', 'Node.js & Supabase', 'Real-time WebSocket/Polling backend.', 0.8, 1040, 730),
 
-    n('slide5', 'Event', 'Judges Challenges', 'We deployed your feedback live during the hackathon.', 1, 0, 650),
-    n('task_noise', 'Claim', 'Noise Filtering', 'Meeting notes now strictly filter out small talk.', 0.9, 340, 600),
-    n('task_speakers', 'Claim', 'Nested Speakers', 'Identifies who made which claim automatically.', 0.9, 340, 700),
-    n('task_source', 'Claim', 'Source Tracking', 'Inspector now tracks the original URL of web data.', 0.9, 340, 800),
+    n('slide5', 'Event', 'Complex Workflows', 'Adapted for real-world enterprise constraints.', 1, 0, 650),
+    n('task_noise', 'Claim', 'Semantic Noise Filtering', 'Extracts high-signal insights from messy meeting logs.', 0.9, 340, 600),
+    n('task_speakers', 'Claim', 'Entity Disambiguation', 'Accurately attributes claims to specific nested speakers.', 0.9, 340, 700),
+    n('task_source', 'Claim', 'Data Provenance', 'Maintains absolute traceability of external web sources.', 0.9, 340, 800),
 
     n('slide6', 'Event', 'Live Multiplayer Demo', 'NeuroGraph syncs instantly across the room.', 1, 700, 900),
     n('slide6_action', 'Claim', 'Scan the QR Code', 'Judges, please scan to synthesize your thoughts live.', 0.9, 1040, 900)
@@ -90,7 +90,7 @@ export const PITCH_ENTRIES = [
   },
   {
     id: 'pitch-5', at: t(4), author: 'Aryan', intent: 'analytical',
-    text: 'Slide 5: Live Execution. We took the judges\' challenges and deployed them live: Noise Filtering for meetings, Nested Speaker tracking, and Source URL tracking.',
+    text: 'Slide 5: Complex Workflows. NeuroGraph adapts to real-world constraints via Semantic Noise Filtering, Entity Disambiguation for nested speakers, and Data Provenance tracking.',
     nodeIds: ['slide5', 'task_noise', 'task_speakers', 'task_source'],
     stats: { nodes: 4, edges: 3, contradictions: 0 }, meta: { model: 'pitch-mode', latencyMs: 50 },
   },
