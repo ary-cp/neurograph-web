@@ -51,10 +51,12 @@ function VoiceControl({ voice, disabled }) {
         onClick={voice.start}
         disabled={disabled || !voice.supported || busy}
         title={voice.supported ? 'Record a voice note — it is transcribed by Whisper and synthesized' : 'Voice needs HTTPS or localhost in a supported browser'}
-        className="inline-flex h-8 items-center gap-2 rounded-[3px] border border-hairline px-2.5 text-[11.5px] text-muted transition-colors hover:border-teal/60 hover:bg-teal/10 hover:text-ink disabled:cursor-not-allowed disabled:opacity-35"
+        className="inline-flex h-9 items-center gap-2 rounded-[3px] border border-bronze/70 bg-bronze/[0.14] px-3 text-[12.5px] font-medium text-ink shadow-[0_0_0_1px_#a8815b22] transition-colors hover:border-bronze hover:bg-bronze/25 disabled:cursor-not-allowed disabled:opacity-35 max-md:h-10 max-md:px-3.5 max-md:text-[13.5px]"
       >
-        {busy ? <Loader2 className="size-3.5 motion-safe:animate-spin" aria-hidden="true" /> : <Mic className="size-3.5" strokeWidth={1.5} aria-hidden="true" />}
-        {voice.status === 'transcribing' ? 'Transcribing…' : voice.status === 'requesting' ? 'Mic…' : 'Voice'}
+        {busy
+          ? <Loader2 className="size-4 motion-safe:animate-spin text-bronze" aria-hidden="true" />
+          : <span className="grid size-5 place-items-center rounded-full bg-bronze text-void"><Mic className="size-3" strokeWidth={2} aria-hidden="true" /></span>}
+        {voice.status === 'transcribing' ? 'Transcribing…' : voice.status === 'requesting' ? 'Mic…' : 'Voice note'}
       </button>
       {busy && (
         <button type="button" onClick={voice.cancel} className="h-8 rounded-[3px] px-2 text-[11px] text-muted hover:text-ink" aria-label="Cancel voice input">
