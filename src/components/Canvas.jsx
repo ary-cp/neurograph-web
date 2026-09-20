@@ -195,6 +195,7 @@ export default function Canvas() {
           deleteKeyCode={['Backspace', 'Delete']}
           selectionOnDrag={false}
           panOnScroll
+          zoomOnPinch={true}
         >
           <Background variant={BackgroundVariant.Dots} gap={24} size={0.8} color="rgba(127,158,157,0.16)" />
           {nodes.length > 0 && <MiniMap position="top-right" pannable zoomable style={{ width: 150, height: 96, top: 14, right: 16 }} nodeColor={(n) => kindOf(n.data?.kind).hex} nodeStrokeWidth={0} />}
