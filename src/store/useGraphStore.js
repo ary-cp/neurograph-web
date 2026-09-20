@@ -124,12 +124,13 @@ export const useGraphStore = create((set, get) => ({
 
       const prevSelectedNode = get().nodes.find(n => n.selected)?.id
       const prevSelectedEdge = get().edges.find(e => e.selected)?.id
+      
+      const newNotesAdded = isPolling && res.notes.length > roomNotesCount;
 
       set({
         nodes: renumber(nodes.map((n) => ({ 
           ...n, 
-          selected: n.id === prevSelectedNode,
-          data: { ...n.data, isNew: false } 
+          selected: n.id === prevSelectedNode 
         }))),
         edges: edges.map((e) => ({
           ...e,
@@ -137,7 +138,8 @@ export const useGraphStore = create((set, get) => ({
         })),
         entries,
         roomNotesCount: res.notes.length,
-        fitVersion: isPolling ? get().fitVersion : get().fitVersion + 1,
+        fitVersion: newNotesAdded ? get().fitVersion + 1 : (isPolling ? get().fitVersion : get().fitVersion + 1),
+        recentNodeIds: (newNotesAdded && entries.length > 0) ? entries[0].nodeIds : get().recentNodeIds
       })
     } catch (err) {
       console.error('Failed to fetch room graphs', err)
