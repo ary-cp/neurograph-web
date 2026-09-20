@@ -36,7 +36,9 @@ function ViewportSync() {
     if (initialized && fitVersion !== done.current) {
       done.current = fitVersion
       const nodes = recentNodeIds?.length ? recentNodeIds.map((id) => ({ id })) : undefined
-      fitView({ nodes, duration: 700, padding: 0.3, maxZoom: 1.15 })
+      setTimeout(() => {
+        fitView({ nodes, duration: 700, padding: 0.3, maxZoom: 1.15 })
+      }, 150) // Wait for mobile keyboard to retract and canvas to remeasure
     }
   }, [fitVersion, recentNodeIds, initialized, fitView])
   return null
