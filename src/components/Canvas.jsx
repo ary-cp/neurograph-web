@@ -30,17 +30,23 @@ function ViewportSync() {
   const fitVersion = useGraphStore((s) => s.fitVersion)
   const recentNodeIds = useGraphStore((s) => s.recentNodeIds)
   const initialized = useNodesInitialized()
-  const { fitView } = useReactFlow()
+  const { fitView, setViewport, getViewport } = useReactFlow()
   const done = useRef(0)
   useEffect(() => {
     if (initialized && fitVersion !== done.current) {
       done.current = fitVersion
       const nodes = recentNodeIds?.length ? recentNodeIds.map((id) => ({ id })) : undefined
       setTimeout(() => {
-        fitView({ nodes, duration: 700, padding: 0.3, maxZoom: 1.15 })
+        fitView({ nodes, duration: 600, padding: 0.3, maxZoom: 1.15 }).then(() => {
+          if (window.innerWidth < 768) {
+            const { x, y, zoom } = getViewport()
+            // Shift the view up by ~22% of screen height to escape the bottom Logbook UI
+            setViewport({ x, y: y - (window.innerHeight * 0.22), zoom }, { duration: 300 })
+          }
+        })
       }, 150) // Wait for mobile keyboard to retract and canvas to remeasure
     }
-  }, [fitVersion, recentNodeIds, initialized, fitView])
+  }, [fitVersion, recentNodeIds, initialized, fitView, setViewport, getViewport])
   return null
 }
 
