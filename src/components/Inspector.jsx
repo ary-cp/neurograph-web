@@ -76,6 +76,13 @@ function IdeaTab() {
       </div>
       <h3 className="font-display mt-3 text-[24px] font-normal leading-[1.15] text-ink">{node.data?.label}</h3>
       {node.data?.summary && <p className="mt-3 text-[12.5px] leading-[1.7] text-muted/85">{node.data.summary}</p>}
+      
+      {node.data?.source && (
+        <p className="mt-2 text-[10.5px] text-muted/60 break-all">
+          Source: <a href={node.data.source} target="_blank" rel="noreferrer" className="hover:text-teal hover:underline transition-colors">{node.data.source}</a>
+        </p>
+      )}
+
       <div className="mt-4 flex items-center justify-between border-y border-hairline py-2.5 readout text-muted/70">
         <span className="flex items-center gap-2">relevance <Meter weight={node.data?.weight} hex={kind.hex} /></span>
         <span>{links.length} {links.length === 1 ? 'link' : 'links'}</span>
