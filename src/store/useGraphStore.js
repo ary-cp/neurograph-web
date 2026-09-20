@@ -4,6 +4,7 @@ import { extractGraph, getRoomGraph, ApiError } from '../lib/api'
 import { normalizeEdge, normalizeNode, mergeGraph, computeOrigin, isContradiction } from '../lib/graphMerge'
 import { normalizeUsername, readSavedUsername, saveUsername } from '../lib/collaboration'
 import { DEMO_GRAPH, DEMO_ENTRIES } from '../data/demoConstellation'
+import { PITCH_GRAPH, PITCH_ENTRIES } from '../data/pitchDeck'
 
 const AUTHOR_RE = /^\[(.+?)\]:\s*/
 const POLL_MS = 3000
@@ -298,6 +299,20 @@ export const useGraphStore = create((set, get) => ({
       edges: DEMO_GRAPH.edges.map(normalizeEdge),
       entries: [...DEMO_ENTRIES].sort((a, b) => b.at - a.at),
       lastResult: { stats: DEMO_ENTRIES[2].stats, meta: { ...DEMO_ENTRIES[2].meta, intent: 'brainstorm', mock: true }, at: Date.now() },
+      recentNodeIds: null, highlightIds: [], flareIds: [], error: null, isSynthesizing: false,
+      fitVersion: s.fitVersion + 1,
+    }))
+    get().pushToast({ title: 'Demo constellation loaded', detail: 'A sandbox — nothing here is saved to the room.' })
+  },
+
+  loadPitch: () => {
+    if (window._roomSyncInterval) clearInterval(window._roomSyncInterval)
+    set((s) => ({
+      demoMode: true,
+      nodes: renumber(PITCH_GRAPH.nodes.map(normalizeNode)),
+      edges: PITCH_GRAPH.edges.map(normalizeEdge),
+      entries: [...PITCH_ENTRIES].sort((a, b) => b.at - a.at),
+      lastResult: { stats: PITCH_ENTRIES[3].stats, meta: { ...PITCH_ENTRIES[3].meta, intent: 'analytical', mock: true }, at: Date.now() },
       recentNodeIds: null, highlightIds: [], flareIds: [], error: null, isSynthesizing: false,
       fitVersion: s.fitVersion + 1,
     }))

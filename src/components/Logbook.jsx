@@ -116,6 +116,7 @@ export default function Logbook({ collapsed }) {
   const focusNodes = useGraphStore((s) => s.focusNodes)
   const setHighlight = useGraphStore((s) => s.setHighlight)
   const loadDemo = useGraphStore((s) => s.loadDemo)
+  const loadPitch = useGraphStore((s) => s.loadPitch)
   const voice = useVoiceInput()
 
   const busy = isSynthesizing || voice.busy
@@ -177,6 +178,7 @@ export default function Logbook({ collapsed }) {
               <span className="ml-auto flex shrink-0 gap-3 whitespace-nowrap">
                 <button type="button" onClick={() => setInput(EXAMPLE)} className="text-bronze hover:text-ink">try an example</button>
                 <button type="button" onClick={loadDemo} className="text-muted/70 hover:text-ink">load demo</button>
+                <button type="button" onClick={loadPitch} className="text-teal hover:text-ink font-medium">load pitch deck</button>
               </span>
             )}
           </div>
