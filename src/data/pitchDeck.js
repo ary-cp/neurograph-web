@@ -3,11 +3,11 @@ const n = (id, kind, label, summary, weight, x, y) => ({
   id, type: 'concept', position: { x, y }, data: { label, kind, summary, weight },
 })
 const rel = (source, target, label, confidence) => ({
-  id: `e___`, source, target, type: 'default', className: 'edge-solid', label,
+  id: `e_${source}__${target}`, source, target, type: 'default', className: 'edge-solid', label,
   data: { gap: false, confidence, relation: label },
 })
 const gap = (source, target, confidence) => ({
-  id: `e___`, source, target, type: 'contradiction', className: 'edge-gap',
+  id: `e_${source}__${target}`, source, target, type: 'contradiction', className: 'edge-gap',
   data: { gap: true, type: 'contradiction', confidence, relation: 'contradicts' },
 })
 const t = (minsAgo) => Date.now() - minsAgo * 60 * 1000
